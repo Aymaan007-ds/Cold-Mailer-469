@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Generator and Scheduler</title>
+    <style>
+        /* Simple styling for better readability */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #formContainer {
+            max-width: 600px;
+            display: none; /* Hide the form initially */
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        #messageArea {
+            margin-bottom: 20px;
+            color: blue;
+            font-weight: bold;
+        }
+        #loginButton, #generateScheduleButton {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #generateScheduleButton {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        #generateScheduleButton:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cold Mailer 469</h2>
+
+    <!-- Message Area -->
+    <div id="messageArea">Please log in to continue.</div>
+
+    <!-- Login Button -->
+    <button id="loginButton">Login with Google</button><br><br>
+
+    <!-- Form Inputs -->
+    <div id="formContainer">
+        <!-- Professor Name Input -->
+        <label for="professorName">Professor Name:</label>
+        <input type="text" id="professorName" required placeholder="Enter the professor's name">
+
+        <!-- Research Title Input -->
+        <label for="researchTitle">Research Title:</label>
+        <input type="text" id="researchTitle" required placeholder="Enter the research title">
+
+        <!-- Research Paper Abstract Input -->
+        <label for="researchAbstract">Research Paper Abstract:</label>
+        <textarea id="researchAbstract" rows="4" required placeholder="Enter the research paper abstract"></textarea>
+
+        <!-- Professor Email -->
+        <label for="professorEmail">Professor Email:</label>
+        <input type="email" id="professorEmail" required placeholder="Enter the professor's email">
+
+        <!-- Timezone Input -->
+        <label for="timezone">Select Timezone:</label>
+        <select id="timezone" required>
+            <option value="">Select a timezone</option>
+            <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+            <option value="Australia/Perth">Australia/Perth (AWST)</option>
+            <option value="Australia/Adelaide">Australia/Adelaide (ACST)</option>
+            <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
+            <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
+            <option value="America/New_York">America/New_York (EST)</option>
+            <option value="America/Chicago">America/Chicago (CST)</option>
+            <option value="America/Denver">America/Denver (MST)</option>
+            <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
+            <option value="America/Anchorage">America/Anchorage (AKST)</option>
+            <option value="Pacific/Honolulu">Pacific/Honolulu (HAST)</option>
+            <option value="Europe/Berlin">Europe/Berlin (CET)</option>
+            <option value="Europe/London">Europe/London (GMT)</option>
+            <option value="Europe/Zurich">Europe/Zurich (CET)</option>
+            <option value="Europe/Amsterdam">Europe/Amsterdam (CET)</option>
+            <option value="America/St_Johns">America/St_Johns (NST)</option>
+            <option value="America/Halifax">America/Halifax (AST)</option>
+            <option value="America/Toronto">America/Toronto (EST)</option>
+            <option value="America/Winnipeg">America/Winnipeg (CST)</option>
+            <option value="America/Edmonton">America/Edmonton (MST)</option>
+            <option value="America/Vancouver">America/Vancouver (PST)</option>
+            <option value="Europe/Rome">Europe/Rome (CET)</option>
+            <option value="Asia/Jerusalem">Asia/Jerusalem (IST)</option>
+            <option value="Europe/Vienna">Europe/Vienna (CET)</option>
+            <option value="Europe/Paris">Europe/Paris (CET)</option>
+            <!-- Add more timezones as needed -->
+        </select>
+
+        <!-- Send Date Input -->
+        <label for="sendDate">Send Date:</label>
+        <input type="date" id="sendDate" required>
+
+        <!-- Send Hour and Minute Input -->
+        <label for="sendHour">Send Hour (24-hour format):</label>
+        <input type="number" id="sendHour" min="0" max="23" required placeholder="0-23">
+
+        <label for="sendMinute">Send Minute:</label>
+        <input type="number" id="sendMinute" min="0" max="59" required placeholder="0-59">
+
+        <!-- Student Input for choosing interest area -->
+        <label for="studentInput">Select Interest Area:</label>
+        <select id="studentInput" required>
+            <option value="">Select an interest area</option>
+            <option value="1">Computer Vision</option>
+            <option value="2">Robotics</option>
+        </select>
+
+        <!-- Generate and Schedule Button -->
+        <button id="generateScheduleButton">Generate and Schedule</button>
+    </div>
+
+    <script src="app.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
