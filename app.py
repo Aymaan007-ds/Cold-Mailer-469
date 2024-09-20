@@ -34,7 +34,7 @@ logging.basicConfig(
 @app.route('/')
 def index():
     # Serve the index.html file
-    return send_from_directory('.', 'index.html')
+    return send_from_directory('.', 'templates/index.html')
 
 @app.route('/authorize')
 def authorize():
