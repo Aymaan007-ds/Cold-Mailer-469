@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Email Generator and Scheduler</title>
     <style>
-        /* Simple styling for better readability */
+        /* Existing CSS styles */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -27,16 +27,19 @@
             color: blue;
             font-weight: bold;
         }
-        #loginButton, #generateScheduleButton {
+        #loginButton, #generateEmailButton, #scheduleEmailButton {
             padding: 10px 20px;
             font-size: 16px;
         }
-        #generateScheduleButton {
+        #generateEmailButton, #scheduleEmailButton {
+            margin-top: 10px;
+        }
+        #scheduleEmailButton {
             background-color: #4CAF50;
             color: white;
             border: none;
         }
-        #generateScheduleButton:disabled {
+        #scheduleEmailButton:disabled {
             background-color: #ccc;
         }
     </style>
@@ -64,6 +67,21 @@
         <label for="researchAbstract">Research Paper Abstract:</label>
         <textarea id="researchAbstract" rows="4" required placeholder="Enter the research paper abstract"></textarea>
 
+        <!-- Student Input for choosing interest area -->
+        <label for="studentInput">Select Interest Area:</label>
+        <select id="studentInput" required>
+            <option value="">Select an interest area</option>
+            <option value="1">Computer Vision</option>
+            <option value="2">Robotics</option>
+        </select>
+
+        <!-- Generate Email Button -->
+        <button id="generateEmailButton">Generate Email</button><br><br>
+
+        <!-- Generated Email Display -->
+        <label for="generatedEmail">Generated Email Content:</label>
+        <textarea id="generatedEmail" rows="10" placeholder="Generated email will appear here..."></textarea><br><br>
+
         <!-- Professor Email -->
         <label for="professorEmail">Professor Email:</label>
         <input type="email" id="professorEmail" required placeholder="Enter the professor's email">
@@ -72,6 +90,7 @@
         <label for="timezone">Select Timezone:</label>
         <select id="timezone" required>
             <option value="">Select a timezone</option>
+            <!-- Timezone options -->
             <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
             <option value="Australia/Perth">Australia/Perth (AWST)</option>
             <option value="Australia/Adelaide">Australia/Adelaide (ACST)</option>
@@ -97,7 +116,6 @@
             <option value="Asia/Jerusalem">Asia/Jerusalem (IST)</option>
             <option value="Europe/Vienna">Europe/Vienna (CET)</option>
             <option value="Europe/Paris">Europe/Paris (CET)</option>
-            <!-- Add more timezones as needed -->
         </select>
 
         <!-- Send Date Input -->
@@ -111,16 +129,8 @@
         <label for="sendMinute">Send Minute:</label>
         <input type="number" id="sendMinute" min="0" max="59" required placeholder="0-59">
 
-        <!-- Student Input for choosing interest area -->
-        <label for="studentInput">Select Interest Area:</label>
-        <select id="studentInput" required>
-            <option value="">Select an interest area</option>
-            <option value="1">Computer Vision</option>
-            <option value="2">Robotics</option>
-        </select>
-
-        <!-- Generate and Schedule Button -->
-        <button id="generateScheduleButton">Generate and Schedule</button>
+        <!-- Schedule Email Button -->
+        <button id="scheduleEmailButton" disabled>Schedule Email</button>
     </div>
 
     <script src="../static/app.js"></script> <!-- Link to your JavaScript file -->
