@@ -14,7 +14,7 @@ from openai import OpenAI  # Updated import per new syntax
 
 # Initialize OpenAI API client
 client = OpenAI(
-    api_key='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'  # Replace with your actual API key
+    api_key='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'  # Replace with your actual API key
 )
 
 # Static values for attachments
