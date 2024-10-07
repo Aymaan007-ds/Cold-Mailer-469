@@ -51,8 +51,9 @@ A maximum of 75 words is allowed for this paragraph. Start the concise paragraph
         temperature=0.7
     )
 
-    dynamic_paragraph = response['choices'][0]['message']['content'].strip()
+    dynamic_paragraph = response.choices[0].message.content.strip()
     return dynamic_paragraph
+
 
 def compose_email(professor_name, dynamic_paragraph, student_input):
     """Composes the full email body based on the student's interest area."""
