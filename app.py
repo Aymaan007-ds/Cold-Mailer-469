@@ -48,6 +48,7 @@ def authorize():
 
 @app.route('/check_authentication')
 def check_authentication():
+
     # Check if token.json exists
     if os.path.exists('token.json'):
         return jsonify({'authenticated': True})
