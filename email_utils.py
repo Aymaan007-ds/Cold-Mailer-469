@@ -2,32 +2,29 @@
 
 import os
 import base64
-import mimetypes
 import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
-from openai import OpenAI  # Updated import per new syntax
+from flask import session
+from openai import OpenAI
 
 # Initialize OpenAI API client
-client = OpenAI(
-    api_key='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'  # Replace with your actual API key
-)
+client = OpenAI(api_key=os.environ.get('OpenAI_API_Key'))
 
-# Static values for attachments
-ATTACHMENTS = ['CV_Narendhiran.pdf', 'Transcript_Narendhiran.pdf']
+# Student interests
 STUDENT_INTERESTS = "computer vision, robotics, and perception"
 
+SCOPES = ['https://www.googleapis.com/auth/gmail.send']
+
 def get_gmail_service():
-    """Builds the Gmail API service using credentials from token.json."""
+    """Builds the Gmail API service using credentials from the session."""
     creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', ['https://www.googleapis.com/auth/gmail.send'])
+    if 'credentials' in session:
+        creds = Credentials.from_authorized_user_info(session['credentials'], SCOPES)
     else:
-        logging.error('token.json not found. Please run authenticate.py to generate it.')
+        logging.error('No credentials found in session. Please authenticate first.')
         return None
     service = build('gmail', 'v1', credentials=creds)
     return service
@@ -54,7 +51,7 @@ A maximum of 75 words is allowed for this paragraph. Start the concise paragraph
         temperature=0.7
     )
 
-    dynamic_paragraph = response.choices[0].message.content.strip()
+    dynamic_paragraph = response['choices'][0]['message']['content'].strip()
     return dynamic_paragraph
 
 def compose_email(professor_name, dynamic_paragraph, student_input):
@@ -72,11 +69,11 @@ def compose_email(professor_name, dynamic_paragraph, student_input):
             f"and <strong>Computer Vision</strong>. {dynamic_paragraph}</p>"
         )
         closing = (
-            """<p>I am reaching out to express my interest in contributing to your research as a <strong>summer intern in 2025</strong> under your guidance, <strong>along with any of your PhD scholars</strong> in the same domain.<p>
-                        <p>During my <strong>IIT Bombay internship</strong>, I worked on optimizing <strong>free space segmentation</strong> for <strong>COTS navigation</strong> using <strong>monocular vision</strong>. By leveraging <strong>transfer learning</strong> from <strong>YOLOP</strong>, I streamlined the model into a <strong>single-task network</strong>, replacing the SPP with a lightweight <strong>ASPP</strong>, reducing decoder heads, and integrating <strong>attention mechanisms</strong> in a <strong>pyramid fusion block</strong>. I further enhanced the architecture with a <strong>Global Feature Upsampling decoder</strong> and a <strong>Border Refinement Module</strong> to improve boundary accuracy. This model was successfully deployed for real-time navigation on a <strong>Kobuki bot</strong>, and we are currently preparing it for submission to <strong>ICRA 2025</strong>. This kind of work excites me immensely, and I see strong parallels between my interests and the work you're currently leading in <strong>Computer Vision</strong>.<p>
-                        <p>In addition to my technical experience, I am co-authoring two research papers - one on <strong>Posture Recognition using EEG signals in Bharatanatyam</strong> and another on a <strong>Conversational Image Recognition Chatbot</strong>. Additionally, I have worked on the <strong>Deepfake Face-swap Detection</strong> by combining <strong>Audio-Visual Analysis</strong> and <strong>Frequency Domain Analysis</strong> for the Smart India Hackathon - these experiences have further deepened my focus on computer vision. I have also participated in competitions like <strong>SAE AeroTHON-24</strong> and the <strong>MathWorks Minidrone Competition</strong>, where I developed <strong>image processing systems</strong> for <strong>autonomous navigation tasks</strong> in aerial vehicles. I believe this background would allow me to contribute meaningfully to your research work.<p>
-                        <p>I am aiming to advance in this field and have set my sights on <strong>higher studies</strong>, with aspirations towards a <strong>PhD</strong>. Working with you would be an invaluable step in that direction. Whether it's on-site or remote, I am open to any opportunity where I can contribute and grow under your guidance. My <strong><a href="https://drive.google.com/file/d/1vasTnMajfH5YKGu1LTF4yPZn7BL2tQFk/view?usp=sharing">Curriculum Vitae</a></strong> and <strong><a href="https://drive.google.com/file/d/1yVOolEeAEnSWA80s9pqQW5UvcR5xJ8zJ/view?usp=sharing">Academic Transcript</a></strong> are attached for your reference. I would be happy to discuss how I can contribute to your research.<p>
-"""
+            """<p>I am reaching out to express my interest in contributing to your research as a <strong>summer intern in 2025</strong> under your guidance, <strong>along with any of your PhD scholars</strong> in the same domain.</p>
+            <p>During my <strong>IIT Bombay internship</strong>, I worked on optimizing <strong>free space segmentation</strong> for <strong>COTS navigation</strong> using <strong>monocular vision</strong>. By leveraging <strong>transfer learning</strong> from <strong>YOLOP</strong>, I streamlined the model into a <strong>single-task network</strong>, replacing the SPP with a lightweight <strong>ASPP</strong>, reducing decoder heads, and integrating <strong>attention mechanisms</strong> in a <strong>pyramid fusion block</strong>. I further enhanced the architecture with a <strong>Global Feature Upsampling decoder</strong> and a <strong>Border Refinement Module</strong> to improve boundary accuracy. This model was successfully deployed for real-time navigation on a <strong>Kobuki bot</strong>, and we are currently preparing it for submission to <strong>ICRA 2025</strong>. This kind of work excites me immensely, and I see strong parallels between my interests and the work you're currently leading in <strong>Computer Vision</strong>.</p>
+            <p>In addition to my technical experience, I am co-authoring two research papers—one on <strong>Posture Recognition using EEG signals in Bharatanatyam</strong> and another on a <strong>Conversational Image Recognition Chatbot</strong>. Additionally, I have worked on <strong>Deepfake Face-swap Detection</strong> by combining <strong>Audio-Visual Analysis</strong> and <strong>Frequency Domain Analysis</strong> for the Smart India Hackathon—these experiences have further deepened my focus on computer vision. I have also participated in competitions like <strong>SAE AeroTHON-24</strong> and the <strong>MathWorks Minidrone Competition</strong>, where I developed <strong>image processing systems</strong> for <strong>autonomous navigation tasks</strong> in aerial vehicles. I believe this background would allow me to contribute meaningfully to your research work.</p>
+            <p>I am aiming to advance in this field and have set my sights on <strong>higher studies</strong>, with aspirations towards a <strong>PhD</strong>. Working with you would be an invaluable step in that direction. Whether it's on-site or remote, I am open to any opportunity where I can contribute and grow under your guidance. My <strong><a href="https://drive.google.com/file/d/1vasTnMajfH5YKGu1LTF4yPZn7BL2tQFk/view?usp=sharing">Curriculum Vitae</a></strong> and <strong><a href="https://drive.google.com/file/d/1yVOolEeAEnSWA80s9pqQW5UvcR5xJ8zJ/view?usp=sharing">Academic Transcript</a></strong> are available for your reference. I would be happy to discuss how I can contribute to your research.</p>
+            """
         )
     elif student_input == 2:  # Robotics Template
         intro += (
@@ -84,13 +81,17 @@ def compose_email(professor_name, dynamic_paragraph, student_input):
             f"and <strong>Robotics</strong>. {dynamic_paragraph}</p>"
         )
         closing = (
-            """<p>I am reaching out to express my interest in contributing to your research as a <strong>summer intern in 2025</strong> under your guidance, <strong>along with any of your PhD scholars</strong> in the same domain.<p>
-                                <p>As part of the <strong>AeroTHON-24 competition</strong>, I led the development of an <strong>autonomous search and rescue quadcopter</strong>. The drone autonomously detected and classified <strong>hotspots</strong> using <strong>MAVLink</strong> and <strong>MAVProxy</strong> protocols for communication. I implemented <strong>SSDMobileNetV2</strong> with a <strong>FPNLite extractor</strong> for hotspot detection, along with <strong>OpenIPC</strong> for real-time digital telemetry. I also contributed to the design and simulation in <strong>Gazebo</strong>, integrating <strong>QGroundControl SITL</strong> for flight control testing. We used <strong>Pixhawk</strong> and <strong>Raspberry Pi</strong> controllers, and enhanced flight stability with a <strong>camera tilting mechanism</strong> and </strong>RTH (Return to Home) mode</strong> for safety. This kind of work excites me immensely, and I see strong parallels between my interests and the work you're currently leading.<p>
-                                <p>Additionally, I participated in the <strong>MathWorks Minidrone Competition</strong>, where I led the <strong>image processing aspect for autonomous navigation</strong> using <strong>Simulink</strong> on a <strong>Parrot Mambo minidrone</strong>. During my <strong>IIT Bombay internship</strong>, I developed a <strong>COTS navigation pipeline</strong> for <strong>monocular vision</strong> on a <strong>Kobuki bot</strong>, optimizing <strong>real-time free space segmentation</strong> for autonomous navigation, which is submitted to <strong>ICRA 2025</strong>.<p>
-                                <p>Beyond these competitions, I am also co-authoring two research papers - one on <strong>Posture Recognition using EEG signals in Bharatanatyam</strong> and another on a <strong>Conversational Image Recognition Chatbot</strong> for the <strong>Smart India Hackathon</strong> - both of which have further deepened my focus on <strong>computer vision</strong>. I believe this background would allow me to contribute meaningfully to your research work.<p>
-                                <p>I am aiming to advance in this field and have set my sights on <strong>higher studies</strong>, with aspirations towards a <strong>PhD</strong>. Working with you would be an invaluable step in that direction. Whether it's on-site or remote, I am open to any opportunity where I can contribute and grow under your guidance. My <strong><a href="https://drive.google.com/file/d/1vasTnMajfH5YKGu1LTF4yPZn7BL2tQFk/view?usp=sharing">Curriculum Vitae</a></strong> and <strong><a href="https://drive.google.com/file/d/1yVOolEeAEnSWA80s9pqQW5UvcR5xJ8zJ/view?usp=sharing">Academic Transcript</a></strong> are attached for your reference. I would be happy to discuss how I can contribute to your research.<p>
-                """
+            """<p>I am reaching out to express my interest in contributing to your research as a <strong>summer intern in 2025</strong> under your guidance, <strong>along with any of your PhD scholars</strong> in the same domain.</p>
+            <p>As part of the <strong>AeroTHON-24 competition</strong>, I led the development of an <strong>autonomous search and rescue quadcopter</strong>. The drone autonomously detected and classified <strong>hotspots</strong> using <strong>MAVLink</strong> and <strong>MAVProxy</strong> protocols for communication. I implemented <strong>SSDMobileNetV2</strong> with a <strong>FPNLite extractor</strong> for hotspot detection, along with <strong>OpenIPC</strong> for real-time digital telemetry. I also contributed to the design and simulation in <strong>Gazebo</strong>, integrating <strong>QGroundControl SITL</strong> for flight control testing. We used <strong>Pixhawk</strong> and <strong>Raspberry Pi</strong> controllers, and enhanced flight stability with a <strong>camera tilting mechanism</strong> and <strong>RTH (Return to Home) mode</strong> for safety. This kind of work excites me immensely, and I see strong parallels between my interests and the work you're currently leading.</p>
+            <p>Additionally, I participated in the <strong>MathWorks Minidrone Competition</strong>, where I led the <strong>image processing aspect for autonomous navigation</strong> using <strong>Simulink</strong> on a <strong>Parrot Mambo minidrone</strong>. During my <strong>IIT Bombay internship</strong>, I developed a <strong>COTS navigation pipeline</strong> for <strong>monocular vision</strong> on a <strong>Kobuki bot</strong>, optimizing <strong>real-time free space segmentation</strong> for autonomous navigation, which is submitted to <strong>ICRA 2025</strong>.</p>
+            <p>Beyond these competitions, I am also co-authoring two research papers—one on <strong>Posture Recognition using EEG signals in Bharatanatyam</strong> and another on a <strong>Conversational Image Recognition Chatbot</strong> for the <strong>Smart India Hackathon</strong>—both of which have further deepened my focus on <strong>computer vision</strong>. I believe this background would allow me to contribute meaningfully to your research work.</p>
+            <p>I am aiming to advance in this field and have set my sights on <strong>higher studies</strong>, with aspirations towards a <strong>PhD</strong>. Working with you would be an invaluable step in that direction. Whether it's on-site or remote, I am open to any opportunity where I can contribute and grow under your guidance. My <strong><a href="https://drive.google.com/file/d/1vasTnMajfH5YKGu1LTF4yPZn7BL2tQFk/view?usp=sharing">Curriculum Vitae</a></strong> and <strong><a href="https://drive.google.com/file/d/1yVOolEeAEnSWA80s9pqQW5UvcR5xJ8zJ/view?usp=sharing">Academic Transcript</a></strong> are available for your reference. I would be happy to discuss how I can contribute to your research.</p>
+            """
         )
+    else:
+        closing = ""
+        logging.error(f"Invalid student input: {student_input}")
+
     signature = (
         "<p>Best regards,<br>"
         "Narendhiran V<br>"
@@ -102,8 +103,8 @@ def compose_email(professor_name, dynamic_paragraph, student_input):
     email_body = f"{greeting}{intro}{closing}{signature}"
     return email_body
 
-def create_message_with_attachments(sender, to, subject, body_html, attachments):
-    """Creates an email message with attachments."""
+def create_message(sender, to, subject, body_html):
+    """Creates an email message without attachments."""
     message = MIMEMultipart()
     message['to'] = to
     message['from'] = sender
@@ -113,33 +114,11 @@ def create_message_with_attachments(sender, to, subject, body_html, attachments)
     msg = MIMEText(body_html, 'html')
     message.attach(msg)
 
-    # Attach files
-    for file_path in attachments:
-        if not os.path.exists(file_path):
-            logging.error(f"Attachment not found: {file_path}")
-            continue
-
-        content_type, encoding = mimetypes.guess_type(file_path)
-
-        if content_type is None or encoding is not None:
-            content_type = 'application/octet-stream'
-
-        main_type, sub_type = content_type.split('/', 1)
-        with open(file_path, 'rb') as file:
-            file_data = MIMEBase(main_type, sub_type)
-            file_data.set_payload(file.read())
-            encoders.encode_base64(file_data)
-            file_data.add_header(
-                'Content-Disposition',
-                f'attachment; filename="{os.path.basename(file_path)}"'
-            )
-            message.attach(file_data)
-
     raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
     return {'raw': raw_message}
 
-def send_email_with_attachments(to_email, subject, body_html):
-    """Sends an email with attachments using the Gmail API."""
+def send_email(to_email, subject, body_html):
+    """Sends an email using the Gmail API."""
     service = get_gmail_service()
     if service is None:
         logging.error('Failed to get Gmail service.')
@@ -153,12 +132,11 @@ def send_email_with_attachments(to_email, subject, body_html):
         logging.error(f"An error occurred while retrieving sender's email: {error}")
         sender_email = 'me'  # Default to 'me' if unable to get the email address
 
-    message = create_message_with_attachments(
+    message = create_message(
         sender=sender_email,
         to=to_email,
         subject=subject,
-        body_html=body_html,
-        attachments=ATTACHMENTS
+        body_html=body_html
     )
 
     try:

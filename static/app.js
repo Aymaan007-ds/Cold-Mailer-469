@@ -2,7 +2,7 @@
 
 // Function to check authentication status
 function checkAuthentication() {
-    fetch('http://localhost:5000/check_authentication')
+    fetch('/check_authentication')
         .then(response => response.json())
         .then(data => {
             if (data.authenticated) {
@@ -25,8 +25,8 @@ function checkAuthentication() {
 
 // Event listener for login button
 document.getElementById('loginButton').addEventListener('click', function() {
-    // Redirect to Flask backend for Google OAuth (port 5000)
-    window.location.href = 'http://localhost:5000/authorize';
+    // Redirect to Flask backend for Google OAuth
+    window.location.href = '/authorize';
 });
 
 // Event listener for generate email button
@@ -49,7 +49,7 @@ document.getElementById('generateEmailButton').addEventListener('click', functio
     button.textContent = 'Generating...';
 
     // Generate the email content
-    fetch('http://localhost:5000/generate_email', {
+    fetch('/generate_email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -122,7 +122,7 @@ document.getElementById('scheduleEmailButton').addEventListener('click', functio
     button.textContent = 'Scheduling...';
 
     // Schedule the email
-    fetch('http://localhost:5000/schedule_email', {
+    fetch('/schedule_email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

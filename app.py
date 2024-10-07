@@ -1,25 +1,36 @@
 # app.py
 
-from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
+from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
+from flask_session import Session
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import pytz
 import logging
 import os
+import redis
 
 # Import functions from email_utils.py
 from email_utils import (
     generate_dynamic_paragraph,
-    compose_email,
-    send_email_with_attachments
+    compose_email
 )
 
-# Import the authenticate_gmail function from authenticate.py
-from authenticate import authenticate_gmail
+# Import the authenticate_gmail function and oauth2callback from authenticate.py
+from authenticate import authenticate_gmail, oauth2callback
 
-app = Flask(__name__, static_url_path='', static_folder='.')
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 CORS(app)
+
+# Configure Flask-Session
+app.config['SECRET_KEY'] = os.environ.get('secret_key', 'your-secret-key')
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_REDIS'] = redis.from_url(os.environ.get('redis_url'))
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+
+# Initialize the session
+Session(app)
 
 # Initialize APScheduler
 scheduler = BackgroundScheduler()
@@ -34,23 +45,22 @@ logging.basicConfig(
 @app.route('/')
 def index():
     # Serve the index.html file
-    return send_from_directory('.', 'templates/index.html')
+    return send_from_directory('templates', 'index.html')
 
 @app.route('/authorize')
 def authorize():
-    # Call authenticate_gmail function
-    creds = authenticate_gmail()
-    if creds:
-        # Redirect back to the index page after successful authentication
-        return redirect('http://localhost:5000/')
-    else:
-        return 'Authentication failed. Please try again.'
+    # Start the authentication process
+    return authenticate_gmail()
+
+@app.route('/oauth2callback')
+def oauth2callback_route():
+    # Handle the OAuth2 callback
+    return oauth2callback()
 
 @app.route('/check_authentication')
 def check_authentication():
-
-    # Check if token.json exists
-    if os.path.exists('token.json'):
+    # Check if credentials are stored in the session
+    if 'credentials' in session:
         return jsonify({'authenticated': True})
     else:
         return jsonify({'authenticated': False})
@@ -59,7 +69,7 @@ def check_authentication():
 @app.route('/generate_email', methods=['POST'])
 def generate_email_route():
     # Check if user is authenticated
-    if not os.path.exists('token.json'):
+    if 'credentials' not in session:
         return jsonify({'error': 'User not authenticated'}), 401
 
     data = request.json
@@ -87,9 +97,9 @@ def generate_email_route():
 
 # Route to schedule the email
 @app.route('/schedule_email', methods=['POST'])
-def schedule_email():
+def schedule_email_route():
     # Check if user is authenticated
-    if not os.path.exists('token.json'):
+    if 'credentials' not in session:
         return jsonify({'error': 'User not authenticated'}), 401
 
     data = request.json
