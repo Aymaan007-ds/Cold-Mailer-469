@@ -13,7 +13,8 @@ import redis
 # Import functions from email_utils.py
 from email_utils import (
     generate_dynamic_paragraph,
-    compose_email
+    compose_email,
+    send_email
 )
 
 # Import the authenticate_gmail function and oauth2callback from authenticate.py
@@ -139,7 +140,7 @@ def schedule_email_route():
     # Schedule the email
     job_id = f"email_{professor_email}_{int(send_datetime.timestamp())}"
     scheduler.add_job(
-        func=send_email_with_attachments,
+        func=send_email,
         trigger='date',
         run_date=send_datetime,
         args=[professor_email, 'Seeking Undergraduate Research Opportunity under your guidance', email_body],
