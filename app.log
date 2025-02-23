@@ -1,0 +1,116 @@
+2025-02-23 15:44:14,659 - DEBUG - Looking up time zone info from registry
+2025-02-23 15:44:14,662 - INFO - Scheduler started
+2025-02-23 15:44:14,663 - DEBUG - Looking for jobs to run
+2025-02-23 15:44:14,663 - INFO - Scheduler started successfully.
+2025-02-23 15:44:14,663 - DEBUG - No jobs; waiting until a job is added
+2025-02-23 15:44:14,664 - INFO - Flask application started.
+2025-02-23 15:44:14,679 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-02-23 15:44:14,679 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-23 15:44:14,680 - INFO -  * Restarting with stat
+2025-02-23 15:44:15,577 - DEBUG - Looking up time zone info from registry
+2025-02-23 15:44:15,579 - INFO - Scheduler started
+2025-02-23 15:44:15,579 - DEBUG - Looking for jobs to run
+2025-02-23 15:44:15,580 - INFO - Scheduler started successfully.
+2025-02-23 15:44:15,580 - DEBUG - No jobs; waiting until a job is added
+2025-02-23 15:44:15,581 - INFO - Flask application started.
+2025-02-23 15:44:15,588 - WARNING -  * Debugger is active!
+2025-02-23 15:44:15,591 - INFO -  * Debugger PIN: 133-044-511
+2025-02-23 15:45:55,488 - INFO - User accessed the home page. Authenticated: False
+2025-02-23 15:45:55,495 - INFO - 127.0.0.1 - - [23/Feb/2025 15:45:55] "GET / HTTP/1.1" 200 -
+2025-02-23 15:45:55,544 - INFO - User accessed the home page. Authenticated: False
+2025-02-23 15:45:55,544 - INFO - 127.0.0.1 - - [23/Feb/2025 15:45:55] "GET / HTTP/1.1" 200 -
+2025-02-23 15:45:55,611 - INFO - 127.0.0.1 - - [23/Feb/2025 15:45:55] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2025-02-23 15:45:57,217 - DEBUG - Generated new state yGRBEDy5jHaxnly2LiMbhJenIDIDkb.
+2025-02-23 15:46:15,975 - INFO - "GET /?state=yGRBEDy5jHaxnly2LiMbhJenIDIDkb&code=4/0ASVgi3Iw1KK0UDAaaEXxSnUqVvurv5V7IjY9tE4YIWQ7hwsBc6BwE9maFGRqepDH4aGR-w&scope=https://www.googleapis.com/auth/gmail.send HTTP/1.1" 200 65
+2025-02-23 15:46:15,975 - DEBUG - Encoding `client_id` "452166075620-b7fhbl1oi25u4ms3qs25lp1caq200t13.apps.googleusercontent.com" with `client_secret` as Basic auth credentials.
+2025-02-23 15:46:15,975 - DEBUG - Requesting url https://oauth2.googleapis.com/token using method POST.
+2025-02-23 15:46:15,975 - DEBUG - Supplying headers {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'} and data {'grant_type': 'authorization_code', 'code': '4/0ASVgi3Iw1KK0UDAaaEXxSnUqVvurv5V7IjY9tE4YIWQ7hwsBc6BwE9maFGRqepDH4aGR-w', 'redirect_uri': 'http://localhost:62348/'}
+2025-02-23 15:46:15,975 - DEBUG - Passing through key word arguments {'timeout': None, 'auth': <requests.auth.HTTPBasicAuth object at 0x0000026C43FC34D0>, 'verify': None, 'proxies': None, 'cert': None}.
+2025-02-23 15:46:15,976 - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-02-23 15:46:16,146 - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-02-23 15:46:16,147 - DEBUG - Request to fetch token completed with status 200.
+2025-02-23 15:46:16,148 - DEBUG - Request url was https://oauth2.googleapis.com/token
+2025-02-23 15:46:16,148 - DEBUG - Request headers were {'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '157', 'Authorization': 'Basic NDUyMTY2MDc1NjIwLWI3ZmhibDFvaTI1dTRtczNxczI1bHAxY2FxMjAwdDEzLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tOkdPQ1NQWC03TUFWcFdpVEsyTmVmZkZaQU5KeVpHTTM0SHpV'}
+2025-02-23 15:46:16,148 - DEBUG - Request body was grant_type=authorization_code&code=4%2F0ASVgi3Iw1KK0UDAaaEXxSnUqVvurv5V7IjY9tE4YIWQ7hwsBc6BwE9maFGRqepDH4aGR-w&redirect_uri=http%3A%2F%2Flocalhost%3A62348%2F
+2025-02-23 15:46:16,148 - DEBUG - Response headers were {'Date': 'Sun, 23 Feb 2025 10:16:20 GMT', 'Pragma': 'no-cache', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Vary': 'Origin, X-Origin, Referer', 'Content-Encoding': 'gzip', 'Server': 'scaffolding on HTTPServer2', 'X-XSS-Protection': '0', 'X-Frame-Options': 'SAMEORIGIN', 'X-Content-Type-Options': 'nosniff', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'Transfer-Encoding': 'chunked'} and content {
+  "access_token": "ya29.a0AXeO80RROIraophvo3NXKXSWVUYpYgkqq9eDKVyVYLJ-Z1ufhudTa1QEy-r2fPXVOsjU03ee-hk2d6D-bXEirMqb3AQ_9F_OtlJ364mb6ugUm1qghbhnsGMl8ZXCWe-lDij5v79iJGSLAKnqOTEgAAOALLVkBU4x2jM4cbLoaCgYKAYESARMSFQHGX2MiroDxZp4IT_Aq8UXAwQZz9Q0175",
+  "expires_in": 3599,
+  "refresh_token": "1//0giBYlHDrxKllCgYIARAAGBASNwF-L9IrpvdLnU2ns40pKQf6qK2_J-3lbfNjEOQHyIrRGnUQ-qMfASqSPL2XxfRyF_pccVpAikA",
+  "scope": "https://www.googleapis.com/auth/gmail.send",
+  "token_type": "Bearer",
+  "refresh_token_expires_in": 604799
+}.
+2025-02-23 15:46:16,148 - DEBUG - Invoking 0 token response hooks.
+2025-02-23 15:46:16,148 - DEBUG - Obtained token {'access_token': 'ya29.a0AXeO80RROIraophvo3NXKXSWVUYpYgkqq9eDKVyVYLJ-Z1ufhudTa1QEy-r2fPXVOsjU03ee-hk2d6D-bXEirMqb3AQ_9F_OtlJ364mb6ugUm1qghbhnsGMl8ZXCWe-lDij5v79iJGSLAKnqOTEgAAOALLVkBU4x2jM4cbLoaCgYKAYESARMSFQHGX2MiroDxZp4IT_Aq8UXAwQZz9Q0175', 'expires_in': 3599, 'refresh_token': '1//0giBYlHDrxKllCgYIARAAGBASNwF-L9IrpvdLnU2ns40pKQf6qK2_J-3lbfNjEOQHyIrRGnUQ-qMfASqSPL2XxfRyF_pccVpAikA', 'scope': ['https://www.googleapis.com/auth/gmail.send'], 'token_type': 'Bearer', 'refresh_token_expires_in': 604799, 'expires_at': 1740309375.1483693}.
+2025-02-23 15:46:16,149 - INFO - OAuth authentication triggered successfully.
+2025-02-23 15:46:16,150 - INFO - 127.0.0.1 - - [23/Feb/2025 15:46:16] "[32mGET /authenticate HTTP/1.1[0m" 302 -
+2025-02-23 15:46:16,156 - INFO - User accessed the home page. Authenticated: True
+2025-02-23 15:46:16,156 - INFO - 127.0.0.1 - - [23/Feb/2025 15:46:16] "GET / HTTP/1.1" 200 -
+2025-02-23 15:46:16,218 - INFO - 127.0.0.1 - - [23/Feb/2025 15:46:16] "[36mGET /static/app.js HTTP/1.1[0m" 304 -
+2025-02-23 15:46:40,279 - INFO - User accessed the home page. Authenticated: True
+2025-02-23 15:46:40,280 - INFO - 127.0.0.1 - - [23/Feb/2025 15:46:40] "GET / HTTP/1.1" 200 -
+2025-02-23 15:47:34,937 - INFO - Generating email preview for Professor: Aymaan, Research Title: Climate Change
+2025-02-23 15:47:35,526 - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-23 15:47:35,527 - DEBUG - load_verify_locations cafile='C:\\Python312\\Lib\\site-packages\\certifi\\cacert.pem'
+2025-02-23 15:47:35,989 - DEBUG - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'developer', 'content': 'You are a helpful assistant that composes professional emails.'}, {'role': 'user', 'content': '\nYou are an AI assistant that writes professional and personalized emails to professors.\n\nGiven the professor\'s name and research paper abstract, compose a **single, concise paragraph** (maximum of 75 words) that highlights the student\'s interests in the context of the professor\'s work. The paragraph should begin with "Having read your work, Climate Change" and focus on both Computer Vision and Robotics. Do not include greetings or closings. Additionally, follow these instructions: Be sarcastic.\nYOUR RESPONSE SHOULD BE IN PLAIN TEXT, BUT USE HTML TAGS (LIKE <br>) FOR LINE BREAKS AND (LIKE <strong>) FOR EMPHASIS. THAT IS IT. (USING AN HTML PARSER THATS WHY)\n- Professor: Aymaan\n- Research Title: Climate Change\n- Research Paper Abstract: Climate Change is not real.\n    '}], 'model': 'gpt-4o-mini', 'max_tokens': 300, 'temperature': 0.7}}
+2025-02-23 15:47:36,160 - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-02-23 15:47:36,161 - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-23 15:47:36,187 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000026C46074AA0>
+2025-02-23 15:47:36,187 - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000026C46043F50> server_hostname='api.openai.com' timeout=5.0
+2025-02-23 15:47:36,208 - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000026C45F7AC60>
+2025-02-23 15:47:36,208 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-23 15:47:36,208 - DEBUG - send_request_headers.complete
+2025-02-23 15:47:36,208 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-23 15:47:36,208 - DEBUG - send_request_body.complete
+2025-02-23 15:47:36,208 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-23 15:47:38,401 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 23 Feb 2025 10:17:43 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-yer9nqjspqkzyto9kr8wvhl5'), (b'openai-processing-ms', b'1589'), (b'openai-version', b'2020-10-01'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199487'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'153ms'), (b'x-request-id', b'req_e62bca55371f84d4236a883a5086f5df'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=WdRA8_gtUV2NMyLq1f5lp4Ymul2FcbDI2d2Fcd9WuYU-1740305863-1.0.1.1-UInmYGY5ibEZhvMbMK70JYmNxAgHpjST4kBlAXA5yVmzjOt4zXdc8HabiWYGs0AYu03DoNRN4skTYMBnmAGfVg; path=/; expires=Sun, 23-Feb-25 10:47:43 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=iqnFEBzxaDC.4ziLsEaUkQxPL7Zr0WR6JOB2CfJ9qrg-1740305863215-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'916677af7ec29371-MAA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-02-23 15:47:38,403 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-23 15:47:38,403 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-23 15:47:38,403 - DEBUG - receive_response_body.complete
+2025-02-23 15:47:38,403 - DEBUG - response_closed.started
+2025-02-23 15:47:38,403 - DEBUG - response_closed.complete
+2025-02-23 15:47:38,404 - DEBUG - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Sun, 23 Feb 2025 10:17:43 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-yer9nqjspqkzyto9kr8wvhl5'), ('openai-processing-ms', '1589'), ('openai-version', '2020-10-01'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199487'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '153ms'), ('x-request-id', 'req_e62bca55371f84d4236a883a5086f5df'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=WdRA8_gtUV2NMyLq1f5lp4Ymul2FcbDI2d2Fcd9WuYU-1740305863-1.0.1.1-UInmYGY5ibEZhvMbMK70JYmNxAgHpjST4kBlAXA5yVmzjOt4zXdc8HabiWYGs0AYu03DoNRN4skTYMBnmAGfVg; path=/; expires=Sun, 23-Feb-25 10:47:43 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=iqnFEBzxaDC.4ziLsEaUkQxPL7Zr0WR6JOB2CfJ9qrg-1740305863215-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '916677af7ec29371-MAA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-02-23 15:47:38,404 - DEBUG - request_id: req_e62bca55371f84d4236a883a5086f5df
+2025-02-23 15:47:38,405 - INFO - Email preview successfully generated for Aymaan
+2025-02-23 15:47:38,406 - INFO - 127.0.0.1 - - [23/Feb/2025 15:47:38] "POST /generate-email HTTP/1.1" 200 -
+2025-02-23 15:48:18,374 - INFO - Received email scheduling request for aymaanalam.nitt@gmail.com at 2025-02-23 15:49 in Asia/Kolkata timezone.
+2025-02-23 15:48:18,422 - INFO - Added job "scheduled_send_email" to job store "default"
+2025-02-23 15:48:18,422 - INFO - Email successfully scheduled for aymaanalam.nitt@gmail.com at 2025-02-23T10:19:00+00:00 UTC. Job ID: 376c0d456a204b0da3036f2a5db8b1b2
+2025-02-23 15:48:18,422 - INFO - 127.0.0.1 - - [23/Feb/2025 15:48:18] "POST /schedule-email HTTP/1.1" 200 -
+2025-02-23 15:48:18,423 - DEBUG - Looking for jobs to run
+2025-02-23 15:48:18,423 - DEBUG - Next wakeup is due at 2025-02-23 15:49:00+05:30 (in 41.576388 seconds)
+2025-02-23 15:49:00,010 - DEBUG - Looking for jobs to run
+2025-02-23 15:49:00,011 - INFO - Running job "scheduled_send_email (trigger: date[2025-02-23 10:19:00 UTC], next run at: 2025-02-23 10:19:00 UTC)" (scheduled at 2025-02-23 10:19:00+00:00)
+2025-02-23 15:49:00,011 - INFO - Removed job 376c0d456a204b0da3036f2a5db8b1b2
+2025-02-23 15:49:00,012 - INFO - Scheduled email execution started for aymaanalam.nitt@gmail.com
+2025-02-23 15:49:00,012 - DEBUG - No jobs; waiting until a job is added
+2025-02-23 15:49:00,013 - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-23 15:49:00,014 - DEBUG - load_verify_locations cafile='C:\\Python312\\Lib\\site-packages\\certifi\\cacert.pem'
+2025-02-23 15:49:00,347 - DEBUG - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'developer', 'content': 'You are a helpful assistant that composes professional emails.'}, {'role': 'user', 'content': '\nYou are an AI assistant that writes professional and personalized emails to professors.\n\nGiven the professor\'s name and research paper abstract, compose a **single, concise paragraph** (maximum of 75 words) that highlights the student\'s interests in the context of the professor\'s work. The paragraph should begin with "Having read your work, Climate Change" and focus on both Computer Vision and Robotics. Do not include greetings or closings. Additionally, follow these instructions: Be sarcastic.\nYOUR RESPONSE SHOULD BE IN PLAIN TEXT, BUT USE HTML TAGS (LIKE <br>) FOR LINE BREAKS AND (LIKE <strong>) FOR EMPHASIS. THAT IS IT. (USING AN HTML PARSER THATS WHY)\n- Professor: Aymaan\n- Research Title: Climate Change\n- Research Paper Abstract: Climate Change is not real.\n    '}], 'model': 'gpt-4o-mini', 'max_tokens': 300, 'temperature': 0.7}}
+2025-02-23 15:49:00,349 - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-02-23 15:49:00,349 - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-23 15:49:00,409 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000026C460B5CD0>
+2025-02-23 15:49:00,409 - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000026C46069250> server_hostname='api.openai.com' timeout=5.0
+2025-02-23 15:49:00,433 - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000026C460B5BE0>
+2025-02-23 15:49:00,433 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-23 15:49:00,433 - DEBUG - send_request_headers.complete
+2025-02-23 15:49:00,433 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-23 15:49:00,435 - DEBUG - send_request_body.complete
+2025-02-23 15:49:00,435 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-23 15:49:02,671 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 23 Feb 2025 10:19:07 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-yer9nqjspqkzyto9kr8wvhl5'), (b'openai-processing-ms', b'1523'), (b'openai-version', b'2020-10-01'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199487'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'153ms'), (b'x-request-id', b'req_f171ccee743948d5c36b8f5696e0a966'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=TFc9dy7dM_okhX5KZjinZtTvNdRAb_0uZm.7InnoVQ0-1740305947-1.0.1.1-MRzTpLr5aVimHAhEXj8EKpEwLII6UaGaAKgHmWbQbHWmN6fwMOXTVUDRFb7rqEo09cZTC62xnQ5TPEG4z3dwwg; path=/; expires=Sun, 23-Feb-25 10:49:07 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=8MxgNcec3krp7C94gQ9qZf_pGOzfAu1Zbn4jsglIs2g-1740305947486-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'916679bdd924936b-MAA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-02-23 15:49:02,672 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-23 15:49:02,672 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-23 15:49:02,685 - DEBUG - receive_response_body.complete
+2025-02-23 15:49:02,685 - DEBUG - response_closed.started
+2025-02-23 15:49:02,685 - DEBUG - response_closed.complete
+2025-02-23 15:49:02,685 - DEBUG - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Sun, 23 Feb 2025 10:19:07 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-yer9nqjspqkzyto9kr8wvhl5'), ('openai-processing-ms', '1523'), ('openai-version', '2020-10-01'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199487'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '153ms'), ('x-request-id', 'req_f171ccee743948d5c36b8f5696e0a966'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=TFc9dy7dM_okhX5KZjinZtTvNdRAb_0uZm.7InnoVQ0-1740305947-1.0.1.1-MRzTpLr5aVimHAhEXj8EKpEwLII6UaGaAKgHmWbQbHWmN6fwMOXTVUDRFb7rqEo09cZTC62xnQ5TPEG4z3dwwg; path=/; expires=Sun, 23-Feb-25 10:49:07 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=8MxgNcec3krp7C94gQ9qZf_pGOzfAu1Zbn4jsglIs2g-1740305947486-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '916679bdd924936b-MAA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-02-23 15:49:02,685 - DEBUG - request_id: req_f171ccee743948d5c36b8f5696e0a966
+2025-02-23 15:49:02,714 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-02-23 15:49:02,772 - DEBUG - URL being requested: POST https://gmail.googleapis.com/gmail/v1/users/me/messages/send?alt=json
+2025-02-23 15:49:05,528 - INFO - Email successfully sent to aymaanalam.nitt@gmail.com
+2025-02-23 15:49:05,530 - INFO - Job "scheduled_send_email (trigger: date[2025-02-23 10:19:00 UTC], next run at: 2025-02-23 10:19:00 UTC)" executed successfully
+2025-02-23 15:49:31,467 - DEBUG - close.started
+2025-02-23 15:49:31,468 - DEBUG - close.complete
+2025-02-23 15:49:31,468 - DEBUG - close.started
+2025-02-23 15:49:31,468 - DEBUG - close.complete

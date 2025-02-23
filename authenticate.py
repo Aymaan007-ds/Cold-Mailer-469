@@ -1,67 +1,37 @@
-# authenticate.py
-
 import os
-import json
-from flask import session, redirect, url_for, request
-from google_auth_oauthlib.flow import Flow
-from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 
+# Define the Gmail API scope (modify if needed)
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
-def authenticate_gmail():
-    """Handles OAuth 2.0 authentication and stores the credentials in the session."""
+# Choose the port for the OAuth callback (must be registered in your redirect URIs)
+OAUTH_PORT = 62348  # or use 62348
+
+def get_credentials():
+    """
+    Obtains user credentials:
+      - If 'credentials.json' exists, loads and returns them.
+      - Otherwise, runs the OAuth flow using 'client_secret.json' with forced re-consent,
+        saves the credentials (including a refresh token) to 'credentials.json', and returns them.
+    """
     creds = None
-
-    # Check if credentials are stored in session
-    if 'credentials' in session:
-        creds = Credentials.from_authorized_user_info(session['credentials'], SCOPES)
-
-    # If credentials are invalid or don't exist, initiate the OAuth flow
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            # Refresh expired credentials
-            creds.refresh(Request())
-            # Update the credentials in the session
-            session['credentials'] = json.loads(creds.to_json())
-        else:
-            # Load client configuration from environment variable
-            client_config = json.loads(os.environ.get('client_secret.json'))
-            flow = Flow.from_client_config(
-                client_config,
-                scopes=SCOPES,
-                redirect_uri=url_for('oauth2callback_route', _external=True)
-            )
-
-            authorization_url, state = flow.authorization_url(
-                access_type='offline',
-                include_granted_scopes='true',
-                prompt='consent'  # Ensures a refresh token is received
-            )
-
-            # Store the state in the session
-            session['state'] = state
-
-            return redirect(authorization_url)
-
+    if os.path.exists('credentials.json'):
+        creds = Credentials.from_authorized_user_file('credentials.json', SCOPES)
+        print("Loaded credentials from credentials.json")
+    else:
+        # Force the consent screen and request offline access to always get a refresh token.
+        flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', SCOPES)
+        creds = flow.run_local_server(port=OAUTH_PORT, prompt='consent', access_type='offline')
+        # Save the credentials for future use
+        with open('credentials.json', 'w') as token:
+            token.write(creds.to_json())
+        print("Saved new credentials to credentials.json")
     return creds
 
-def oauth2callback():
-    """Handles the OAuth2 callback and saves the credentials in the session."""
-    state = session.get('state', '')
+def main():
+    creds = get_credentials()
+    print("User authenticated successfully!")
 
-    client_config = json.loads(os.environ.get('client_secret.json'))
-    flow = Flow.from_client_config(
-        client_config,
-        scopes=SCOPES,
-        state=state,
-        redirect_uri=url_for('oauth2callback_route', _external=True)
-    )
-
-    flow.fetch_token(authorization_response=request.url)
-
-    creds = flow.credentials
-    session['credentials'] = json.loads(creds.to_json())
-
-    # Redirect back to the index page
-    return redirect(url_for('index'))
+if __name__ == '__main__':
+    main()

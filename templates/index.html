@@ -1,138 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Email Generator and Scheduler</title>
-    <style>
-        /* Existing CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #formContainer {
-            max-width: 600px;
-            display: none; /* Hide the form initially */
-        }
-        label {
-            font-weight: bold;
-        }
-        input, select, textarea {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        #messageArea {
-            margin-bottom: 20px;
-            color: blue;
-            font-weight: bold;
-        }
-        #loginButton, #generateEmailButton, #scheduleEmailButton {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        #generateEmailButton, #scheduleEmailButton {
-            margin-top: 10px;
-        }
-        #scheduleEmailButton {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-        }
-        #scheduleEmailButton:disabled {
-            background-color: #ccc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Email Scheduler</title>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
 </head>
-<body>
-    <h2>Cold Mailer 469</h2>
+<body bgcolor="#1a1a1a" style="font-family: Arial, Helvetica, sans-serif;">
+  <table width="800" align="center" cellpadding="20" bgcolor="#2d2d2d" style="color: #e0e0e0;">
+    <tr>
+      <td>
+        {% if not authenticated %}
+          <h2 align="center" style="color: #ffffff;">Welcome to Email Scheduler</h2>
+          <div align="center">
+            <button onclick="window.location.href='/authenticate'" style="padding: 15px 30px; font-size: 16px; background-color: #4285f4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Authenticate with Google
+            </button>
+            <p style="color: #808080; font-size: 14px; margin-top: 20px;">* Only available for Google users</p>
+          </div>
+        {% else %}
+          <h2 align="center" style="color: #ffffff;">Compose & Schedule Email</h2>
+          <!-- Form for email preview and scheduling -->
+          <table width="100%" cellpadding="10">
+            <tr>
+              <td width="30%"><label for="professor_name">Professor Name:</label></td>
+              <td><input type="text" id="professor_name" size="40" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+            <tr>
+              <td><label for="research_title">Research Title:</label></td>
+              <td><input type="text" id="research_title" size="40" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+            <tr>
+              <td><label for="research_abstract">Research Abstract:</label></td>
+              <td><textarea id="research_abstract" rows="5" cols="42" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></textarea></td>
+            </tr>
+            <tr>
+              <td><label for="student_input">Area of Interest:</label></td>
+              <td>
+                <select id="student_input" size="1" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;">
+                  <option value="1">Computer Vision</option>
+                  <option value="2">Robotics</option>
+                  <option value="3">In-between Fields</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="additional_comments">Additional Comments:</label></td>
+              <td><textarea id="additional_comments" rows="5" cols="42" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></textarea></td>
+            </tr>
+          </table>
 
-    <!-- Message Area -->
-    <div id="messageArea">Please log in to continue.</div>
+          <div align="center">
+            <button id="generate_email_btn" style="padding: 15px 30px; font-size: 16px; margin: 20px; background-color: #4285f4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Generate Email Preview
+            </button>
+          </div>
 
-    <!-- Login Button -->
-    <button id="loginButton">Login with Google</button><br><br>
+          <div id="email_preview" style="border: 2px solid #4d4d4d; margin: 20px; padding: 20px; background-color: #3d3d3d;"></div>
 
-    <!-- Form Inputs -->
-    <div id="formContainer">
-        <!-- Professor Name Input -->
-        <label for="professorName">Professor Name:</label>
-        <input type="text" id="professorName" required placeholder="Enter the professor's name">
+          <hr size="2" color="#4d4d4d" width="100%">
 
-        <!-- Research Title Input -->
-        <label for="researchTitle">Research Title:</label>
-        <input type="text" id="researchTitle" required placeholder="Enter the research title">
+          <h3 align="center" style="color: #ffffff;">Schedule Email</h3>
+          <table width="100%" cellpadding="10">
+            <tr>
+              <td width="30%"><label for="professor_email">Professor Email:</label></td>
+              <td><input type="email" id="professor_email" size="40" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+            <tr>
+              <td><label for="timezone">Time Zone:</label></td>
+              <td>
+                <select id="timezone" size="1" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;">
+                  <option value="UTC">UTC</option>
+                  <option value="Asia/Kolkata">Asia/Kolkata</option>
+                  <option value="Australia/Sydney">Australia/Sydney</option>
+                  <option value="Australia/Melbourne">Australia/Melbourne</option>
+                  <option value="Australia/Brisbane">Australia/Brisbane</option>
+                  <option value="Australia/Perth">Australia/Perth</option>
+                  <option value="Australia/Adelaide">Australia/Adelaide</option>
+                  <option value="Australia/Hobart">Australia/Hobart</option>
+                  <option value="Asia/Singapore">Asia/Singapore</option>
+                  <option value="America/New_York">America/New_York</option>
+                  <option value="America/Chicago">America/Chicago</option>
+                  <option value="America/Denver">America/Denver</option>
+                  <option value="America/Los_Angeles">America/Los_Angeles</option>
+                  <option value="America/Phoenix">America/Phoenix</option>
+                  <option value="America/Anchorage">America/Anchorage</option>
+                  <option value="America/Honolulu">America/Honolulu</option>
+                  <option value="Europe/Berlin">Europe/Berlin</option>
+                  <option value="Europe/London">Europe/London</option>
+                  <option value="Europe/Zurich">Europe/Zurich</option>
+                  <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                  <option value="America/Toronto">America/Toronto</option>
+                  <option value="America/Vancouver">America/Vancouver</option>
+                  <option value="America/Montreal">America/Montreal</option>
+                  <option value="America/Edmonton">America/Edmonton</option>
+                  <option value="America/Winnipeg">America/Winnipeg</option>
+                  <option value="Europe/Rome">Europe/Rome</option>
+                  <option value="Asia/Jerusalem">Asia/Jerusalem</option>
+                  <option value="Europe/Vienna">Europe/Vienna</option>
+                  <option value="Europe/Paris">Europe/Paris</option>
 
-        <!-- Research Paper Abstract Input -->
-        <label for="researchAbstract">Research Paper Abstract:</label>
-        <textarea id="researchAbstract" rows="4" required placeholder="Enter the research paper abstract"></textarea>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="date">Date (YYYY-MM-DD):</label></td>
+              <td><input type="date" id="date" size="40" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+            <tr>
+              <td><label for="hour">Hour (24h):</label></td>
+              <td><input type="number" id="hour" min="0" max="23" size="10" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+            <tr>
+              <td><label for="minute">Minute:</label></td>
+              <td><input type="number" id="minute" min="0" max="59" size="10" style="background-color: #3d3d3d; color: #e0e0e0; border: 1px solid #4d4d4d; padding: 5px; border-radius: 3px;"></td>
+            </tr>
+          </table>
 
-        <!-- Student Input for choosing interest area -->
-        <label for="studentInput">Select Interest Area:</label>
-        <select id="studentInput" required>
-            <option value="">Select an interest area</option>
-            <option value="1">Computer Vision</option>
-            <option value="2">Robotics</option>
-        </select>
+          <div align="center">
+            <button id="schedule_email_btn" style="padding: 15px 30px; font-size: 16px; margin: 20px; background-color: #4285f4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Schedule Email
+            </button>
+          </div>
 
-        <!-- Generate Email Button -->
-        <button id="generateEmailButton">Generate Email</button><br><br>
-
-        <!-- Generated Email Display -->
-        <label for="generatedEmail">Generated Email Content:</label>
-        <textarea id="generatedEmail" rows="10" placeholder="Generated email will appear here..."></textarea><br><br>
-
-        <!-- Professor Email -->
-        <label for="professorEmail">Professor Email:</label>
-        <input type="email" id="professorEmail" required placeholder="Enter the professor's email">
-
-        <!-- Timezone Input -->
-        <label for="timezone">Select Timezone:</label>
-        <select id="timezone" required>
-            <option value="">Select a timezone</option>
-            <!-- Timezone options -->
-            <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
-            <option value="Australia/Perth">Australia/Perth (AWST)</option>
-            <option value="Australia/Adelaide">Australia/Adelaide (ACST)</option>
-            <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
-            <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
-            <option value="America/New_York">America/New_York (EST)</option>
-            <option value="America/Chicago">America/Chicago (CST)</option>
-            <option value="America/Denver">America/Denver (MST)</option>
-            <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
-            <option value="America/Anchorage">America/Anchorage (AKST)</option>
-            <option value="Pacific/Honolulu">Pacific/Honolulu (HAST)</option>
-            <option value="Europe/Berlin">Europe/Berlin (CET)</option>
-            <option value="Europe/London">Europe/London (GMT)</option>
-            <option value="Europe/Zurich">Europe/Zurich (CET)</option>
-            <option value="Europe/Amsterdam">Europe/Amsterdam (CET)</option>
-            <option value="America/St_Johns">America/St_Johns (NST)</option>
-            <option value="America/Halifax">America/Halifax (AST)</option>
-            <option value="America/Toronto">America/Toronto (EST)</option>
-            <option value="America/Winnipeg">America/Winnipeg (CST)</option>
-            <option value="America/Edmonton">America/Edmonton (MST)</option>
-            <option value="America/Vancouver">America/Vancouver (PST)</option>
-            <option value="Europe/Rome">Europe/Rome (CET)</option>
-            <option value="Asia/Jerusalem">Asia/Jerusalem (IST)</option>
-            <option value="Europe/Vienna">Europe/Vienna (CET)</option>
-            <option value="Europe/Paris">Europe/Paris (CET)</option>
-        </select>
-
-        <!-- Send Date Input -->
-        <label for="sendDate">Send Date:</label>
-        <input type="date" id="sendDate" required>
-
-        <!-- Send Hour and Minute Input -->
-        <label for="sendHour">Send Hour (24-hour format):</label>
-        <input type="number" id="sendHour" min="0" max="23" required placeholder="0-23">
-
-        <label for="sendMinute">Send Minute:</label>
-        <input type="number" id="sendMinute" min="0" max="59" required placeholder="0-59">
-
-        <!-- Schedule Email Button -->
-        <button id="scheduleEmailButton" disabled>Schedule Email</button>
-    </div>
-
-    <script src="/static/app.js"></script> <!-- Link to your JavaScript file -->
+          <div id="schedule_message" style="margin: 20px; padding: 10px; color: #4caf50; text-align: center;"></div>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
